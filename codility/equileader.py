@@ -17,12 +17,9 @@ def leaders(A):
             nums.append(best_num)
         else:
             nums.append(None)
-        #print('best', best_num, counts[best_num])
-    print(A, '=>', nums)
     return nums
 
 def solution(A):
-    # write your code in Python 3.6
     left = leaders(A)
     left.pop()
     A.reverse()
@@ -38,7 +35,6 @@ def solution(A):
 Test = namedtuple('Test', ['input', 'want'])
 tests = [
     Test([4, 3, 4, 4, 4, 2], 2),
-    #Test([1,2,2,1,2,2],1),
 ]
 
 if __name__ == '__main__':
