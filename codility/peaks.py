@@ -12,7 +12,6 @@ def zero_based_peaks(A):
     #print(f"peaks: {peaks}")
     return peaks
 
-
 def check_flags(peaks, k):
     tails = []
     for i in range(len(peaks)):
@@ -30,19 +29,26 @@ def check_flags(peaks, k):
                     return flags
     return []
 
-
-
 def solution(A):
     # write your code in Python 3.6
     peaks = zero_based_peaks(A)
     if not peaks:
         return 0
-    for i in range(1, len(peaks) + 1):
+    for i in range(1, len(peaks) + 2):
         flags = check_flags(peaks, i)
         #print(f"i={i}, flags={flags}")
         if not flags:
             return i - 1
     return -42
+
+flag_tests = [
+    [[0], 1, [0]],
+]
+
+for t in flag_tests:
+    arr, k, want = t
+    got = check_flags(arr, k)
+    assert got == want, f"check_flags({arr}, {k}) == {want}, not {got}"
 
 tests = [
     [[1, 5, 3, 4, 3, 4, 1, 2, 3, 4, 6, 2], 3],
