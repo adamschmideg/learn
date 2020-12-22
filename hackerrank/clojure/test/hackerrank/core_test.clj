@@ -2,6 +2,19 @@
   (:require [clojure.test :refer :all]
             [hackerrank.core :refer :all]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(deftest maximum-palindromes-test
+  (testing "length"
+    (are [s len]
+      (= len (max-palindrome-length s))
+      "baba" 4
+      "baca" 3
+      "babab" 5
+      "abaca" 3))
+  (testing "short and sweet"
+    (are [s n]
+      (= 2 (maximum-palindromes s))
+      "amim" 2))
+  (testing "short"
+    (are [s start end n]
+      (= n (maximum-palindromes s start end))
+      "madamimadam" 4 7 2)))
