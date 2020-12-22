@@ -22,10 +22,9 @@
    (let [[evens odds] (evens-odds s)
          total-odds (apply + odds)
          total-odds (if (zero? total-odds) 1 total-odds)
-         fact (fn [n] (reduce * (range 1 n)))
+         fact (fn [n] (reduce * (range 1 (inc n))))
          counter (fact (apply + evens))
          divisor (apply * (map fact evens))]
-     (println {:odds odds, :total total-odds, :count counter, :divi divisor})
      (* total-odds (/ counter divisor))))
 
   ([s begin end] (maximum-palindromes (subs s (dec begin) end))))

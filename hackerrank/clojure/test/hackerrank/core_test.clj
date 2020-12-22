@@ -10,7 +10,7 @@
       "babab" 5
       "abaca" 3))
   (testing "short and sweet"
-    (are [s n] (= 2 (maximum-palindromes s))
+    (are [s n] (= n (maximum-palindromes s))
       "aaaa" 1
       "abab" 2
       "bababb" 3
