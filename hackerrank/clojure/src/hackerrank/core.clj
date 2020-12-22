@@ -4,7 +4,7 @@
   [s]
   (let [counts (vals (frequencies s))
         evens (->> counts
-                  (map #(* 2 (quot % 2)))
+                  (map #(quot % 2))
                   (remove zero?))
         odds (->> counts
                   (map #(mod % 2))
@@ -14,10 +14,19 @@
 (defn max-palindrome-length
   [s]
   (let [[evens odds] (evens-odds s)
-        total (apply + evens)]
+        total (* 2 (apply + evens))]
     (if (seq odds) (inc total) total)))
 
 (defn maximum-palindromes
-  ([s] s)
+  ([s]
+   (let [[evens odds] (evens-odds s)
+         total-odds (apply + odds)
+         total-odds (if (zero? total-odds) 1 total-odds)
+         fact (fn [n] (reduce * (range 1 n)))
+         counter (fact (apply + evens))
+         divisor (apply * (map fact evens))]
+     (println {:odds odds, :total total-odds, :count counter, :divi divisor})
+     (* total-odds (/ counter divisor))))
+
   ([s begin end] (maximum-palindromes (subs s (dec begin) end))))
 
