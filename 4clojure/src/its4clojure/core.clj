@@ -23,4 +23,20 @@
       []
       xs)))
 
+(defmacro dbg [body]
+  `(let [x# ~body]
+     (println "dbg:" '~body "=" x#)
+     x#))
 
+(defn btree?
+  [x]
+  (or
+    (nil? x)
+    (and
+      (coll? x)
+      (= 3 (count x))
+      (btree? (fnext x))
+      (btree? (last x)))))
+
+
+(println (btree? [1 2 3 4]))
