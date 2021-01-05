@@ -8,20 +8,22 @@
   (is (= (pascal 4) [1 3 3 1])))
 
 (deftest my-flatten-test
-  (are [xs want] (= want (my-flatten xs))
+  (are [xs want]
+    (= want (my-flatten xs))
     3 3
     [4] [4]
     [2 5] [2 5]
     [[7]] [7]
-    [[[8]]]              [8]
-    [nil]  [nil]
-    [[]]                 []
+    [[[8]]] [8]
+    [nil] [nil]
+    [[]] []
     [] []
     [1 [2] 3] [1 2 3]
     [1 [2 [3 4] 5] 6] [1 2 3 4 5 6]))
 
 (deftest btree?-test
-  (are [tree b?] (= b? (btree? tree))
+  (are [tree b?]
+    (= b? (btree? tree))
     '(:a (:b nil nil) nil) true
     [1 2 3 4]  false
     [1 nil [2 [3 nil nil] [4 nil nil]]] true
