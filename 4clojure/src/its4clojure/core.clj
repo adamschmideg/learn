@@ -1,12 +1,12 @@
 (ns its4clojure.core)
 
-(defn fibonacci
+(defn pascal
   [n]
   (if (= 1 n)
     [1]
     (concat
       [1]
-      (map + (fibonacci (dec n)) (next (fibonacci (dec n))))
+      (map + (pascal (dec n)) (next (pascal (dec n))))
       [1])))
 
 
@@ -38,5 +38,3 @@
       (btree? (fnext x))
       (btree? (last x)))))
 
-
-(println (btree? [1 2 3 4]))

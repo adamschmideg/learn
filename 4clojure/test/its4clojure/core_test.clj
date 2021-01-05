@@ -2,10 +2,10 @@
   (:require [clojure.test :refer :all]
             [its4clojure.core :refer :all]))
 
-(deftest fibonacci-test
-  (is (= (fibonacci 1) [1]))
-  (is (= (fibonacci 3) [1 2 1]))
-  (is (= (fibonacci 4) [1 3 3 1])))
+(deftest pascal-test
+  (is (= (pascal 1) [1]))
+  (is (= (pascal 3) [1 2 1]))
+  (is (= (pascal 4) [1 3 3 1])))
 
 (deftest my-flatten-test
   (are [xs want] (= want (my-flatten xs))
