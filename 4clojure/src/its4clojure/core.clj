@@ -38,3 +38,19 @@
       (btree? (fnext x))
       (btree? (last x)))))
 
+(defn my-map
+  [f coll]
+  (if-let [h (first coll)]
+    (lazy-seq
+      (cons (f h) (my-map f (next coll))))))
+
+(defn lcm
+  [a b & more]
+  (let [bs (iterate #(+ b %) b)
+        n (some #(when (zero? (mod % a)) %) bs)]
+    (if more
+      (apply lcm n more)
+      n)))
+
+(defn un-interleave
+  [coll n])

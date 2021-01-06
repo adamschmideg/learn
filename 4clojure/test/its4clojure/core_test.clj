@@ -30,4 +30,15 @@
     [1 [2 nil nil] [3 nil nil] [4 nil nil]] false
     [4 false nil] false))
 
+(deftest map-test
+  (is (= [1 2 3] (my-map inc [0 1 2])))
+  (is (= 5 (count (take 5 (my-map inc (range 100000)))))))
+
+(deftest lcm-test
+  (is (= 6 (lcm 2 3)))
+  (is (= 105 (lcm 5 3 7))))
+
+(deftest un-interleave-test
+  (is (= [[0 2 4] [1 3 5]] (un-interleave (range 6) 2))))
+
 (run-all-tests #"its4clojure.core-test/btree?-test")
