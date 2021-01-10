@@ -39,5 +39,6 @@
   (testing "max-index"
     (is (= 1 (max-index [:b :z :a :f]))))
   (testing "bigger-is-greater"
-    (is (= "lmon" (biggest-is-greater "lmno")))
-    (is (= "no answer" (biggest-is-greater "dcba")))))
+    ;(is (= "lmon" (biggest-is-greater "lmno")))
+    ;(is (= "no answer" (biggest-is-greater "dcba")))
+    (is (= "hcdk" (biggest-is-greater "dkhc")))))

@@ -51,6 +51,9 @@
     (if-let [swap (first rest)]
       (let [left (->> asc (take-while #(pos? (compare swap %))))
             [swap-with & right] (drop (count left) asc)
-            result (concat left [swap] right [swap-with] (next rest))]
+            new-left (concat left [swap] right)
+            result (concat (reverse (sort new-left))
+                           [swap-with]
+                           (next rest))]
         (->> result reverse (apply str)))
       "no answer")))
