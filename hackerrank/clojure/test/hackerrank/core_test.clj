@@ -29,6 +29,15 @@
         15 26 16
         2 10 7
         10 33 544320)))
-  (testing "from resource"
-    (let [input (-> "resources/input.txt" io/resource slurp)])))
+  (testing "from resource"))
 
+(deftest bigger-is-greater-test
+  (testing "split-at-ascending"
+    (is (= [[1 3] [2 0]] (split-at-less [1 3 2 0])))
+    (is (= [[1 2 3] []] (split-at-less [1 2 3])))
+    (is (= [[3] [2 1]] (split-at-less [3 2 1]))))
+  (testing "max-index"
+    (is (= 1 (max-index [:b :z :a :f]))))
+  (testing "bigger-is-greater"
+    (is (= "lmon" (biggest-is-greater "lmno")))
+    (is (= "no answer" (biggest-is-greater "dcba")))))
