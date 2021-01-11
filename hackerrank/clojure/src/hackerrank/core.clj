@@ -1,4 +1,5 @@
-(ns hackerrank.core)
+(ns hackerrank.core
+  (:require [clojure.java.io :as io]))
 
 (defn evens-odds
   [s]
@@ -51,7 +52,7 @@
       (let [left (->> asc (take-while #(pos? (compare swap %))))
             [swap-with & right] (drop (count left) asc)
             new-left (concat left [swap] right)
-            result (concat (reverse (sort new-left))
+            result (concat (reverse new-left)
                            [swap-with]
                            (next rest))]
         (reverse result)))))
@@ -61,3 +62,4 @@
   (if-let [r (perms (seq w))]
     (apply str r)
     "no answer"))
+
