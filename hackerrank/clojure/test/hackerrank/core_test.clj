@@ -38,7 +38,11 @@
     (is (= [[3] [2 1]] (split-at-less [3 2 1]))))
   (testing "max-index"
     (is (= 1 (max-index [:b :z :a :f]))))
+  (testing "perms"
+    (let [perms (iterate perms [:a :b :c :d])
+          diff-perms (set (take 25 perms))]
+      (is (= 25 (count diff-perms)))))
   (testing "bigger-is-greater"
-    ;(is (= "lmon" (biggest-is-greater "lmno")))
-    ;(is (= "no answer" (biggest-is-greater "dcba")))
-    (is (= "hcdk" (biggest-is-greater "dkhc")))))
+    (is (= "lmon" (bigger-is-greater "lmno")))
+    (is (= "no answer" (bigger-is-greater "dcba")))
+    (is (= "hcdk" (bigger-is-greater "dkhc")))))

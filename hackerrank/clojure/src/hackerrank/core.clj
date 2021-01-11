@@ -44,16 +44,20 @@
     (split-at n coll)))
 
 
-(defn biggest-is-greater
-  [w]
-  (let [coll (-> w seq reverse)
-        [asc rest] (split-at-less coll)]
-    (if-let [swap (first rest)]
+(defn perms
+  [coll]
+  (let [[asc rest] (split-at-less (reverse coll))]
+    (when-let [swap (first rest)]
       (let [left (->> asc (take-while #(pos? (compare swap %))))
             [swap-with & right] (drop (count left) asc)
             new-left (concat left [swap] right)
             result (concat (reverse (sort new-left))
                            [swap-with]
                            (next rest))]
-        (->> result reverse (apply str)))
-      "no answer")))
+        (reverse result)))))
+
+(defn bigger-is-greater
+  [w]
+  (if-let [r (perms (seq w))]
+    (apply str r)
+    "no answer"))
