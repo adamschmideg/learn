@@ -14,6 +14,12 @@ class Hashtable:
     42
     >>> ht.get('answer')
     100
+    >>> ht.put(42, 'yey')
+    >>> ht.put(42 + large_prime, 'key collision')
+    >>> ht.get(42)
+    'yey'
+    >>> ht.get(42 + large_prime)
+    'key collision'
     """
 
     def __init__(self):
