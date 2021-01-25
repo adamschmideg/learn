@@ -69,6 +69,25 @@ class Cell:
         rev = self.revert()
         return rev == self
 
+    def remove(self, cell):
+        """
+        >>> head = Cell.build([1, 2, 3, 4])
+        >>> head.remove(head.next.next)
+        >>> head.list()
+        [1, 2, 4]
+        >>> head = Cell.build([1, 2, 3, 4])
+        >>> head.remove(head.next.next.next)
+        >>> head.list()
+        [1, 2, 3]
+        """
+        cur = self
+        while cur:
+            if cur.next == cell:
+                cur.next = cell.next
+                break
+            cur = cur.next
+
+
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
