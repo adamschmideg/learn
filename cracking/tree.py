@@ -1,4 +1,6 @@
 from queue import Queue
+import unittest
+
 
 class BSTNode:
     left = None
@@ -19,6 +21,13 @@ class BSTNode:
             self.right.insert(new_val)
         else:
             self.right = BSTNode(new_val)
+
+    @staticmethod
+    def insert_from_flat_list(vals):
+        root = BSTNode(vals[0])
+        for v in vals[1:]:
+            root.insert(v)
+        return root
 
     @staticmethod
     def from_list(vals_or_v):
@@ -102,6 +111,22 @@ class BSTNode:
                     if node.right is not None and node.right not in some_nodes:
                         partials.put_nowait(some_nodes + [node.right])
 
+
+class BSTTest(unittest.TestCase):
+
+    def test_sequences(self):
+        root= BSTNode.from_list([3, [1, None, 2], [5, 4, 6]])
+        seqs = [tuple(x) for x in root.sequences()]
+        self.assertEqual(len(seqs), len(set(seqs)), "all should be different")
+        baseline = BSTNode.insert_from_flat_list(seqs[0]).to_list()
+        for seq in seqs[1:]:
+            nodes = BSTNode.insert_from_flat_list(seq).to_list()
+            self.assertEqual(baseline, nodes, "same as the first")
+
+
+
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
+
+    unittest.main()
