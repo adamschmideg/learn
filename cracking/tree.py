@@ -1,3 +1,5 @@
+from queue import Queue
+
 class BSTNode:
     left = None
     right = None
@@ -54,6 +56,51 @@ class BSTNode:
         r = self.right.to_list() if self.right is not None else None
         return [self.value, l, r]
 
+    def count_nodes(self):
+        """
+        >>> node = BSTNode.from_list([2, [1, 0, None], 3])
+        >>> node.count_nodes()
+        4
+        """
+        count = 0
+
+        def inc(_):
+            nonlocal count
+            count += 1
+
+        self.breadth_first(inc)
+        return count
+
+    def breadth_first(self, visit_fn):
+        nodes = Queue()
+        nodes.put_nowait(self)
+        while not nodes.empty():
+            elem = nodes.get_nowait()
+            visit_fn(elem)
+            if elem.left is not None:
+                nodes.put_nowait(elem.left)
+            if elem.right is not None:
+                nodes.put_nowait(elem.right)
+
+    def sequences(self):
+        """
+        >>> root = BSTNode.from_list([2, 1, 3])
+        >>> [x for x in root.sequences()]
+        [[2, 1, 3], [2, 3, 1]]
+        """
+        count = self.count_nodes()
+        partials = Queue()
+        partials.put_nowait([self])
+        while not partials.empty():
+            some_nodes = partials.get_nowait()
+            if len(some_nodes) == count:
+                yield [n.value for n in some_nodes]
+            else:
+                for node in some_nodes:
+                    if node.left is not None and node.left not in some_nodes:
+                        partials.put_nowait(some_nodes + [node.left])
+                    if node.right is not None and node.right not in some_nodes:
+                        partials.put_nowait(some_nodes + [node.right])
 
 if __name__ == "__main__":
     import doctest
