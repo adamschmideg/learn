@@ -65,10 +65,12 @@ class BSTNode:
         r = self.right.to_list() if self.right is not None else None
         return [self.value, l, r]
 
-    def count_nodes(self):
+    def count_nodes(self, breadth_first=True):
         """
         >>> node = BSTNode.from_list([2, [1, 0, None], 3])
-        >>> node.count_nodes()
+        >>> node.count_nodes(breadth_first=True)
+        4
+        >>> node.count_nodes(breadth_first=False)
         4
         """
         count = 0
@@ -77,7 +79,10 @@ class BSTNode:
             nonlocal count
             count += 1
 
-        self.breadth_first(inc)
+        if breadth_first:
+            self.breadth_first(inc)
+        else:
+            self.depth_first(inc)
         return count
 
     def breadth_first(self, visit_fn):
@@ -90,6 +95,30 @@ class BSTNode:
                 nodes.put_nowait(elem.left)
             if elem.right is not None:
                 nodes.put_nowait(elem.right)
+
+    def depth_first(self, visit_fn):
+        path = [self]
+        last = None
+        while path:
+            bottom = path[-1]
+            if last is None:
+                visit_fn(bottom)
+                # Descend to first existing child
+                if bottom.left is not None:
+                    path.append(bottom.left)
+                elif bottom.right is not None:
+                    path.append(bottom.right)
+                # no child
+                else:
+                    last = path.pop()
+            else:
+                # we may descent to the right
+                if bottom.left == last and bottom.right is not None:
+                    path.append(bottom.right)
+                    last = None
+                else:
+                    # ascend more
+                    last = path.pop()
 
     def sequences(self):
         """
@@ -122,7 +151,6 @@ class BSTTest(unittest.TestCase):
         for seq in seqs[1:]:
             nodes = BSTNode.insert_from_flat_list(seq).to_list()
             self.assertEqual(baseline, nodes, "same as the first")
-
 
 
 if __name__ == "__main__":
